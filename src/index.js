@@ -1,17 +1,61 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React , { Component }from 'react';
+import { render } from 'react-dom';
+import Hello from './Hello';
+import LoginForm from './container/LoginForm.js';
+import CreateNewAccount from './container/CreateNewAccount.js';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import {
+  Navbar,
+  NavDropdown,
+  MenuItem,
+  NavItem,
+  Nav,
+  Popover,
+  Tooltip,
+  Button,
+  Modal,
+  OverlayTrigger
+} from 'react-bootstrap';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const styles = {
+  fontFamily: 'sans-serif',
+  textAlign: 'center',
+};
+
+
+class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      showModal : false,
+      form : ''
+    }
+  }
+
+  close = () => {
+    this.setState ({ showModal: false });
+  }
+
+
+
+  open = () => {
+    this.setState ({ showModal : true});
+  }
+
+
+  render(){
+    const isLoggedIn = this.state.isLoggedIn;
+
+    return (
+      <div style={styles}>
+        <Hello name="Oowlish team!" />
+        <Button type="button" className="btn btn-default" onClick={this.open}>
+          Login
+        </Button>
+        <LoginForm showModal={this.state.showModal} onClose = {this.close} />
+     </div>
+    );
+  }
+}
+
+render(<App />, document.getElementById('root'));
